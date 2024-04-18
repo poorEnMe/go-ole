@@ -84,7 +84,7 @@ func (sac *SafeArrayConversion) ToValueArray() (values []interface{}) {
 			safeArrayGetElement(sac.Array, i, unsafe.Pointer(&v))
 			values[i] = v
 		case VT_BSTR:
-			v , _ := safeArrayGetElementString(sac.Array, i)
+			v, _ := safeArrayGetElementString(sac.Array, i)
 			values[i] = v
 		case VT_VARIANT:
 			var v VARIANT
@@ -137,4 +137,45 @@ func (sac *SafeArrayConversion) TotalElements(index uint32) (totalElements int32
 // Release Safe Array memory
 func (sac *SafeArrayConversion) Release() {
 	safeArrayDestroy(sac.Array)
+}
+
+func (sac *SafeArrayConversion) ToVariantArray() (values []*VARIANT) {
+	vt, _ := safeArrayGetVartype(sac.Array)
+	if VT(vt) != VT_VARIANT {
+		return nil
+	}
+
+	totalElements, _ := sac.TotalElements(0)
+	values = make([]*VARIANT, totalElements)
+
+	for i := int32(0); i < totalElements; i++ {
+		var v VARIANT
+		safeArrayGetElement(sac.Array, i, unsafe.Pointer(&v))
+		values[i] = &v
+	}
+	return values
+}
+
+// To2DVariantArray invaild，尚未实现
+func (sac *SafeArrayConversion) To2DVariantArray() (values [][]*VARIANT) {
+	vt, _ := safeArrayGetVartype(sac.Array)
+	if VT(vt) != VT_VARIANT {
+		return nil
+	}
+
+	//dis, _ := sac.GetDimensions()
+
+	firstElements, _ := sac.TotalElements(0)
+	secondElements, _ := sac.TotalElements(2)
+	values = make([][]*VARIANT, firstElements)
+
+	for i := int32(0); i < firstElements; i++ {
+		values[i] = make([]*VARIANT, secondElements)
+		for j := int32(0); j < secondElements; j++ {
+			var v VARIANT
+			safeArray2DGetElement(sac.Array, safeArrayFromInt32Slice([]int32{i, j}), unsafe.Pointer(&v))
+			values[i][j] = &v
+		}
+	}
+	return values
 }

@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package ole
@@ -210,6 +211,15 @@ func safeArrayGetElement(safearray *SafeArray, index int32, pv unsafe.Pointer) e
 		procSafeArrayGetElement.Call(
 			uintptr(unsafe.Pointer(safearray)),
 			uintptr(unsafe.Pointer(&index)),
+			uintptr(pv)))
+}
+
+// safeArray2DGetElement retrieves element at given index.
+func safeArray2DGetElement(safearray *SafeArray, index *SafeArray, pv unsafe.Pointer) error {
+	return convertHresultToError(
+		procSafeArrayGetElement.Call(
+			uintptr(unsafe.Pointer(safearray)),
+			uintptr(unsafe.Pointer(index)),
 			uintptr(pv)))
 }
 
