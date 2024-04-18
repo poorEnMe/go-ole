@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package main
@@ -6,8 +7,8 @@ import (
 	"fmt"
 	"log"
 
-	ole "github.com/go-ole/go-ole"
-	"github.com/go-ole/go-ole/oleutil"
+	ole "github.com/poorEnMe/go-ole"
+	"github.com/poorEnMe/go-ole/oleutil"
 )
 
 func main() {

@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package main
@@ -7,8 +8,8 @@ import (
 	"log"
 	"os"
 
-	ole "github.com/go-ole/go-ole"
-	"github.com/go-ole/go-ole/oleutil"
+	ole "github.com/poorEnMe/go-ole"
+	"github.com/poorEnMe/go-ole/oleutil"
 )
 
 func writeExample(excel, workbooks *ole.IDispatch, filepath string) {

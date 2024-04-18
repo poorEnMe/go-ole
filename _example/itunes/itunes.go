@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package main
@@ -7,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	ole "github.com/go-ole/go-ole"
-	"github.com/go-ole/go-ole/oleutil"
 	"github.com/gonuts/commander"
+	ole "github.com/poorEnMe/go-ole"
+	"github.com/poorEnMe/go-ole/oleutil"
 )
 
 func iTunes() *ole.IDispatch {

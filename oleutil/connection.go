@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package oleutil
@@ -6,7 +7,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	ole "github.com/go-ole/go-ole"
+	ole "github.com/poorEnMe/go-ole"
 )
 
 type stdDispatch struct {

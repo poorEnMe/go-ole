@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package oleutil
@@ -7,7 +8,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	ole "github.com/go-ole/go-ole"
+	ole "github.com/poorEnMe/go-ole"
 )
 
 // ConnectObject creates a connection point between two services for communication.
